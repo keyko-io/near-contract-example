@@ -34,7 +34,7 @@ impl Counter {
         self.value.0 -= 1;
     }
 
-    /// Sets the internal counter value.
+    /// Gets the internal counter value.
     ///
     /// #### Return
     ///
@@ -43,7 +43,7 @@ impl Counter {
         self.value
     }
 
-    /// Sets the internal counter value.
+    /// Gets the internal counter value.
     ///
     /// #### Return
     ///

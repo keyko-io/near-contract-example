@@ -31,7 +31,7 @@ pub fn init(
         contract_id,
         &COUNTER_WASM_BYTES,
         None,
-        parse_near!("0 N"),
+        parse_near!("2 N"),
     );
     counter.transfer_extra_deposit_to(root);
     counter
