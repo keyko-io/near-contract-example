@@ -1,0 +1,34 @@
+[workspace]
+resolver = "2"
+
+# include a member for each contract
+members = [
+  "contract-01"
+]
+
+[patch.crates-io.near-sdk]
+git = "https://github.com/Seatlab-dev/Forked-Near-Rust-Sdk.git"
+rev = "fed38a5"
+
+[patch.crates-io.near-contract-standards]
+git = "https://github.com/Seatlab-dev/Forked-Near-Rust-Sdk.git"
+rev = "fed38a5"
+
+[patch.crates-io.schemars]
+git = "https://github.com/Seatlab-dev/schemars.git"
+rev = "df322feb675a194b62ddd449deb6c731417052b6"
+
+[patch.crates-io.okapi]
+git = "https://github.com/Seatlab-dev/okapi.git"
+rev = "b681ab0a14d7e3c40a16c93dddb184ac3c70c3a4"
+
+[profile.release]
+codegen-units = 1
+# Tell `rustc` to optimize for small code size.
+opt-level = "z"
+lto = true
+strip = true
+debug = true
+panic = "abort"
+# Opt into extra safety checks on arithmetic operations https://stackoverflow.com/a/64136471/249801
+overflow-checks = true

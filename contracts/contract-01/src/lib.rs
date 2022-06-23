@@ -1,37 +1,84 @@
+use common::JsUint;
+use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
+use near_sdk::{env, json_types::U64, near_bindgen, AccountId, PanicOnDefault};
+
+pub mod init;
+pub mod non_wasm;
+pub mod version;
+
+/// A counter example.
+#[near_bindgen]
+#[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
 pub struct Counter {
-    pub value: u32,
+    /// Value that is tracked by the counter.
+    pub value: U64,
 }
 
+#[near_bindgen]
 impl Counter {
-    /// Creates a new instance. `value` starts at zero.
-    pub fn new() -> Self {
-        Counter { value: 0 }
-    }
-
+    /// Increments the internal counter value.
+    ///
+    /// #### Return
+    ///
+    /// Has no return.
     pub fn increment(&mut self) {
-        self.value += 1;
+        self.value.0 += 1;
     }
 
+    /// Decrements the internal counter value.
+    ///
+    /// #### Return
+    ///
+    /// Has no return.
     pub fn decrement(&mut self) {
-        self.value -= 1;
+        self.value.0 -= 1;
     }
 
-    pub fn set(&mut self, new_value: u32) {
+    /// Sets the internal counter value.
+    ///
+    /// #### Return
+    ///
+    /// Returns the counter value.
+    pub fn get(&self) -> U64 {
+        self.value
+    }
+
+    /// Sets the internal counter value.
+    ///
+    /// #### Return
+    ///
+    /// Returns the counter value, if it's in range.
+    pub fn get_as_integer(&self) -> JsUint {
+        JsUint::new(self.value.0)
+    }
+
+    /// Sets the internal counter value.
+    ///
+    /// #### Return
+    ///
+    /// Has no return.
+    pub fn set(
+        &mut self,
+        /// The new value of the counter.
+        new_value: U64,
+    ) {
         self.value = new_value;
     }
 
-    pub fn print_value(&self) {
-        println!("{}", self.value);
+    /// Logs the internal counter value.
+    ///
+    /// #### Return
+    ///
+    /// Has no return.
+    pub fn log_value(
+        &self,
+        /// Optionally also logs a mention to some user!
+        mention: Option<AccountId>,
+    ) {
+        let msg = match mention {
+            Some(mention) => format!("yo {}, you know what? {}", mention, self.value.0),
+            None => format!("{}", self.value.0),
+        };
+        env::log_str(&msg)
     }
-}
-
-fn main() {
-    let mut counter = Counter::new();
-    counter.print_value();
-    counter.increment();
-    counter.print_value();
-    counter.decrement();
-    counter.print_value();
-    counter.set(2);
-    counter.print_value();
 }
