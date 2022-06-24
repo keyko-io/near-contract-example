@@ -2,7 +2,7 @@
 
 ## Contracts
 
-- [contract-01](./contracts/contract-01/) / API (TODO).
+- [contract-01](./contracts/contract-01/) / [latest API](https://redocly.github.io/redoc/?url=https://github.com/keyko-io/near-contract-example/releases/latest/download/example-01-openapi.json).
 
 ### Live Contracts
 
